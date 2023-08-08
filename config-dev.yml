@@ -1,0 +1,4 @@
+kwb:
+   server: 
+      port: 8001
+      name: dev
