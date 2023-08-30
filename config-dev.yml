@@ -1,4 +1,78 @@
-kwb:
-   server: 
-      port: 8001
-      name: dev-test
+server:
+   port: 80
+
+spring:
+   application.name: api-gateway
+   cloud:
+      gateway:
+         routes:
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                 - Path=/user-service/login
+                 - Method=POST
+              filters:
+                 - RemoveRequestHeader=Cookie
+                 - RewritePath=/user-service/(?<segment>.*), /$\{segment} 
+
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                 - Path=/user-service/users
+                 - Method=POST
+              filters:
+                 - RemoveRequestHeader=Cookie
+                 - RewritePath=/user-service/(?<segment>.*), /$\{segment} 
+
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                 - Path=/user-service/**
+                 - Method=GET
+              filters:
+                 - RemoveRequestHeader=Cookie
+                 - RewritePath=/user-service/(?<segment>.*), /$\{segment} 
+                 - AuthorizationHeaderFilter
+
+#            - id: user-service
+#              uri: lb://USER-SERVICE
+#              predicates:
+#                 - Path=/user-service/**
+
+            - id: catalog-service
+              uri: lb://CATALOG-SERVICE
+              predicates:
+                 - Path=/catalog-service/**
+
+            - id: order-service
+              uri: lb://ORDER-SERVICE
+              predicates:
+                 - Path=/order-service/**
+        
+            - id: second-service
+              uri: lb://MY-SECOND-SERVICE
+              predicates:
+                 - Path=/second/**
+              filters:
+                - name: CustomFilter
+#                 - AddRequestHeader=X-Gateway-Route-Server,second-server
+#                 - AddRequestHeader=second-request-header,second-request-header-value
+#                 - AddResponseHeader=second-response-header,second-response-header-value
+#
+  
+   output.ansi.enabled: ALWAYS
+
+eureka:
+   client:
+      register-with-eureka: true
+      fetch-registry: true
+      service-url:
+         defaultZone: http://127.0.0.1:8761/eureka
+jwt:
+   secret: 
+      key: dksltlqkfdhodksehlsmsrjsirhwlsWkroQkrclrpgkwlakfkTlqkffusemfdk   
+
+logging:
+  pattern:
+    console: "[%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS})][%boldMagenta(%thread)] %highlight(%level){%boldGreen(%-5level)} %logger{35}  %cyan(%logger{15}) ▶  %msg  %n"
+
