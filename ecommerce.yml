@@ -5,3 +5,5 @@ jwt:
 
 gateway:
    ip: 192.168.1.70
+
+kwb: hello
