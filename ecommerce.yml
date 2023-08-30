@@ -1,7 +1,7 @@
 
 jwt:
    secret: 
-      key: dksltlqkfdhodksehlsmsrjsirhwlsWkroQkrclrpgkwlakfkTlqkffusemfdk   
+      key: dksltlqkfdhodksehlsmsrjsirhwlsWkroQkrclrpgkwlakfkTlqkffchangekey   
 
 gateway:
    ip: 192.168.1.70
