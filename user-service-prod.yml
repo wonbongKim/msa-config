@@ -1,0 +1,14 @@
+spring:
+   datasource:
+      url: jdbc:mysql://192.168.1.164:3306/rest_api_test_server?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+      username: dsgwprod
+      password: JaeWooks94!Q@W
+
+jwt:
+   secret: 
+      key: dksltlqkfdhodksehlsmsrjsirhwlsWkroQkrclrpgkwlakfkTlqkffchangekey   
+
+gateway:
+   ip: 192.168.1.70
+
+kwb: nono
