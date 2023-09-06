@@ -11,4 +11,5 @@ jwt:
 gateway:
    ip: 192.168.1.70
 
-kwb: nono
+order_service:
+   url: http://127.0.0.1:80/order-service/%s/orders
